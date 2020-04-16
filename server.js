@@ -64,12 +64,10 @@ app.get('/login/google/return',
 // to the success view
 app.get('/setcookie', requireUser,
   function(req, res) {
-    console.log(req.user)
     if(req.get('Referrer') && req.get('Referrer').indexOf("google.com")!=1){
       res.cookie('google-passport-example', new Date());
       res.redirect('/success');
     } else {
-       console.log(req.user)
        res.redirect('/');
     }
   }
