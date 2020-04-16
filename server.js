@@ -11,7 +11,7 @@ if (!process.env.PROJECT_DOMAIN) {
 passport.use(new GoogleStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  callbackURL: process.env.PROJECT ? `'https://'+process.env.PROJECT_DOMAIN+'.glitch.me/login/google/return'` : 'http://localhost:8000/login/google/return',
+  callbackURL: process.env.PROJECT ? 'https://ld.glitch.me/login/google/return' : 'http://localhost:8000/login/google/return',
   scope: 'https://www.googleapis.com/auth/plus.login'
 },
 function(token, tokenSecret, profile, cb) {
