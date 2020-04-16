@@ -11,6 +11,7 @@
 		"cookie-parser": "^1.4.3",
 		"express": "^4.14.1",
 		"express-session": "^1.15.1",
+		"dotenv": "^4.0.0",
 		"passport": "^0.3.2",
 		"passport-google-oauth20": "^2.0.0"
 	},
@@ -24,5 +25,5 @@
 		"oauth",
 		"passport"
 	],
-  "license": "MIT"
+	"license": "MIT"
 }
