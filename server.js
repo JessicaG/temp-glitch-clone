@@ -1,11 +1,17 @@
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
+// only do if not running on glitch
+if (!process.env.PROJECT_DOMAIN) {
+  // read environment variables (only necessary locally, not on Glitch)
+  require('dotenv').config();
+}
 // the process.env values are set in .env
+
 passport.use(new GoogleStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  callbackURL: 'https://'+process.env.PROJECT_DOMAIN+'.glitch.me/login/google/return',
+  callbackURL: process.env.PROJECT ? `'https://'+process.env.PROJECT_DOMAIN+'.glitch.me/login/google/return'` : 'http://localhost:8000/login/google/return',
   scope: 'https://www.googleapis.com/auth/plus.login'
 },
 function(token, tokenSecret, profile, cb) {
