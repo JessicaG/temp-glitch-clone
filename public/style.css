@@ -1,3 +1,10 @@
 body {
  background-image: url("https://cdn.glitch.com/4271f25f-07b2-4643-8140-4c66d5025809%2Fspace-2.jpg?v=1587094702465");
 }
+
+.googleSignin {
+  display:block;
+  margin-top: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
