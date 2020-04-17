@@ -1,6 +1,16 @@
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 var nunjucks = require('nunjucks')
+var path = require('path')
+
+// init project
+var express = require('express');
+var app = express();
+var expressSession = require('express-session');
+
+// cookies are used to save authentication
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 
 // only do if not running on glitch
 if (!process.env.PROJECT_DOMAIN) {
@@ -12,7 +22,7 @@ if (!process.env.PROJECT_DOMAIN) {
 passport.use(new GoogleStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  callbackURL: process.env.PROJECT ? 'https://ld.glitch.me/login/google/return' : 'http://localhost:8000/login/google/return',
+  callbackURL: process.env.PROJECT ? `'https://'+process.env.PROJECT_DOMAIN+'.glitch.me/login/google/return'` : 'http://localhost:8000/login/google/return',
   scope: 'https://www.googleapis.com/auth/plus.login'
 },
 function(token, tokenSecret, profile, cb) {
@@ -25,26 +35,17 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
-// init project
-var express = require('express');
-var app = express();
-var expressSession = require('express-session');
-
-// cookies are used to save authentication
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(expressSession({ secret:'watchingfairies', resave: true, saveUninitialized: true, maxAge: (90 * 24 * 3600000) }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.static(path.join(__dirname, 'public')));
 
 nunjucks.configure('views', {
   express: app,
   noCache: true
 });
-
 
 // index route
 app.get('/', function(req, res) {
@@ -86,6 +87,14 @@ app.get('/success', requireLogin,
     res.sendFile(__dirname + '/views/success.html');
   }
 );
+
+//TODO: add requireLogin after being able to see success page
+app.get('/charts',
+    function(req, res) {
+        res.sendFile(__dirname + '/views/success.html');
+    }
+);
+const myPath = path.join(__dirname, '/public')
 
 function requireLogin (req, res, next) {
   if (!req.cookies['google-passport-example']) {
