@@ -1,6 +1,6 @@
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
-
+var path = require('path')
 // only do if not running on glitch
 if (!process.env.PROJECT_DOMAIN) {
   // read environment variables (only necessary locally, not on Glitch)
@@ -11,7 +11,7 @@ if (!process.env.PROJECT_DOMAIN) {
 passport.use(new GoogleStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  callbackURL: process.env.PROJECT ? 'https://ld.glitch.me/login/google/return' : 'http://localhost:8000/login/google/return',
+  callbackURL: process.env.PROJECT ? `'https://'+process.env.PROJECT_DOMAIN+'.glitch.me/login/google/return'` : 'http://localhost:8000/login/google/return',
   scope: 'https://www.googleapis.com/auth/plus.login'
 },
 function(token, tokenSecret, profile, cb) {
@@ -38,6 +38,9 @@ app.use(cookieParser());
 app.use(expressSession({ secret:'watchingfairies', resave: true, saveUninitialized: true, maxAge: (90 * 24 * 3600000) }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.static(path.join(__dirname, 'public')));
+
+
 
 // index route
 app.get('/', function(req, res) {
@@ -79,6 +82,14 @@ app.get('/success', requireLogin,
     res.sendFile(__dirname + '/views/success.html');
   }
 );
+
+//TODO: add requireLogin after being able to see success page
+app.get('/charts',
+    function(req, res) {
+        res.sendFile(__dirname + '/views/success.html');
+    }
+);
+const myPath = path.join(__dirname, '/public')
 
 function requireLogin (req, res, next) {
   if (!req.cookies['google-passport-example']) {
