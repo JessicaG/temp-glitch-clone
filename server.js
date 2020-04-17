@@ -71,7 +71,7 @@ app.get('/setcookie', requireUser,
       res.cookie('google-passport-example', new Date());
       res.redirect('/success');
     } else {
-        res.redirect('/');
+       res.redirect('/');
     }
   }
 );
