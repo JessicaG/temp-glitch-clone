@@ -1,14 +1,25 @@
 #main{
   position:relative;
 }
-div.home {
+html {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.home-bg {
+  background-image: url("https://cdn.glitch.com/4271f25f-07b2-4643-8140-4c66d5025809%2Fspace-2.jpg?v=1587094702465");
+}
+
+.success-bg {
   display: block;
   position: relative;
 }
 
-div.home::after {
+.success-bg::after {
   content: "";
-  background-image: url("https://cdn.glitch.com/4271f25f-07b2-4643-8140-4c66d5025809%2Fspace-2.jpg?v=1587094702465");
+  background-image: url("https://cdn.glitch.com/4271f25f-07b2-4643-8140-4c66d5025809%2Fspace-bg.jpg?v=1587154232280");
   opacity: 0.2;
   top: 0;
   left: 0;
