@@ -1,5 +1,6 @@
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
+var nunjucks = require('nunjucks')
 
 // only do if not running on glitch
 if (!process.env.PROJECT_DOMAIN) {
@@ -39,9 +40,15 @@ app.use(expressSession({ secret:'watchingfairies', resave: true, saveUninitializ
 app.use(passport.initialize());
 app.use(passport.session());
 
+nunjucks.configure('views', {
+  express: app,
+  noCache: true
+});
+
+
 // index route
 app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/views/index.html');
+  res.send(nunjucks.render('index.html', req));
 });
 
 // on clicking "logoff" the cookie is cleared
