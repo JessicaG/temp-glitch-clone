@@ -1,4 +1,4 @@
-SDK,MONTH,COUNT (DISTINCT ACCOUNT)
+SDK,MONTH,COUNT
 Other (Mobile),1,2
 Browser,1,109
 Other (Server-side),2,1
