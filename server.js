@@ -9,8 +9,8 @@ if (!process.env.PROJECT_DOMAIN) {
 // the process.env values are set in .env
 
 passport.use(new GoogleStrategy({
-  clientID: '573576560384-elh951j93s8lq1bfoemn22nu4v6jklht.apps.googleusercontent.com',
-  clientSecret: 'WBFI8BuQZrLd3Ws9fq-tQO1v',
+  clientID: process.env.CLIENT_ID,
+  clientSecret: process.env.CLIENT_SECRET,
   callbackURL: process.env.PROJECT ? `'https://'+process.env.PROJECT_DOMAIN+'.glitch.me/login/google/return'` : 'http://localhost:8000/login/google/return',
   scope: 'https://www.googleapis.com/auth/plus.login'
 },
@@ -71,7 +71,7 @@ app.get('/setcookie', requireUser,
       res.cookie('google-passport-example', new Date());
       res.redirect('/success');
     } else {
-        res.redirect('/success');
+        res.redirect('/');
     }
   }
 );
@@ -79,7 +79,6 @@ app.get('/setcookie', requireUser,
 // if cookie exists, success. otherwise, user is redirected to index
 app.get('/success', requireLogin,
   function(req, res) {
-    console.log('success route!!')
     res.sendFile(__dirname + '/views/success.html');
   }
 );
