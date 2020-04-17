@@ -1,7 +1,7 @@
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
-
-// only do if not running on glitch
+var path = require('path')
+// on   ly do if not running on glitch
 if (!process.env.PROJECT_DOMAIN) {
   // read environment variables (only necessary locally, not on Glitch)
   require('dotenv').config();
@@ -9,9 +9,9 @@ if (!process.env.PROJECT_DOMAIN) {
 // the process.env values are set in .env
 
 passport.use(new GoogleStrategy({
-  clientID: process.env.CLIENT_ID,
-  clientSecret: process.env.CLIENT_SECRET,
-  callbackURL: process.env.PROJECT ? 'https://ld.glitch.me/login/google/return' : 'http://localhost:8000/login/google/return',
+  clientID: '573576560384-elh951j93s8lq1bfoemn22nu4v6jklht.apps.googleusercontent.com',
+  clientSecret: 'WBFI8BuQZrLd3Ws9fq-tQO1v',
+  callbackURL: process.env.PROJECT ? `'https://'+process.env.PROJECT_DOMAIN+'.glitch.me/login/google/return'` : 'http://localhost:8000/login/google/return',
   scope: 'https://www.googleapis.com/auth/plus.login'
 },
 function(token, tokenSecret, profile, cb) {
@@ -38,6 +38,9 @@ app.use(cookieParser());
 app.use(expressSession({ secret:'watchingfairies', resave: true, saveUninitialized: true, maxAge: (90 * 24 * 3600000) }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.static(path.join(__dirname, 'public')));
+
+
 
 // index route
 app.get('/', function(req, res) {
@@ -68,7 +71,7 @@ app.get('/setcookie', requireUser,
       res.cookie('google-passport-example', new Date());
       res.redirect('/success');
     } else {
-       res.redirect('/');
+        res.redirect('/success');
     }
   }
 );
@@ -76,9 +79,22 @@ app.get('/setcookie', requireUser,
 // if cookie exists, success. otherwise, user is redirected to index
 app.get('/success', requireLogin,
   function(req, res) {
+    console.log('success route!!')
     res.sendFile(__dirname + '/views/success.html');
   }
 );
+
+app.get('/charts',
+    function(req, res) {
+        res.sendFile(__dirname + '/views/success.html');
+    }
+);
+const myPath = path.join(__dirname, '/public')
+
+//app.use(express.static(myPath));
+//app.use(express.static(path.join(__dirname, 'node_modules')));
+
+console.log('path', myPath)
 
 function requireLogin (req, res, next) {
   if (!req.cookies['google-passport-example']) {
