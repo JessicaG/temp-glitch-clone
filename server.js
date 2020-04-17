@@ -1,6 +1,17 @@
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
+var nunjucks = require('nunjucks')
 var path = require('path')
+
+// init project
+var express = require('express');
+var app = express();
+var expressSession = require('express-session');
+
+// cookies are used to save authentication
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+
 // only do if not running on glitch
 if (!process.env.PROJECT_DOMAIN) {
   // read environment variables (only necessary locally, not on Glitch)
@@ -24,15 +35,6 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
-// init project
-var express = require('express');
-var app = express();
-var expressSession = require('express-session');
-
-// cookies are used to save authentication
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(expressSession({ secret:'watchingfairies', resave: true, saveUninitialized: true, maxAge: (90 * 24 * 3600000) }));
@@ -41,11 +43,14 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, "models")));
 
-
+nunjucks.configure('views', {
+  express: app,
+  noCache: true
+});
 
 // index route
 app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/views/index.html');
+  res.send(nunjucks.render('index.html', req));
 });
 
 // on clicking "logoff" the cookie is cleared
@@ -80,7 +85,7 @@ app.get('/setcookie', requireUser,
 // if cookie exists, success. otherwise, user is redirected to index
 app.get('/success', requireLogin,
   function(req, res) {
-    res.sendFile(__dirname + '/views/success.html');
+    res.send(nunjucks.render('success.html', req));
   }
 );
 
