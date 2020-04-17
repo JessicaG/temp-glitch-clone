@@ -1,0 +1,67 @@
+SDK	MONTH	COUNT (DISTINCT ACCOUNT)
+Browser	1	762
+Other (Server-side)	2	31
+Other (Mobile)	1	39
+Go	1	80
+Erlang	2	5
+Browser	2	822
+Android	1	166
+C	2	9
+Android	3	188
+iOS	2	197
+Other (Mobile)	3	67
+C	1	8
+Erlang	3	6
+.NET	1	273
+Python	2	138
+Android	2	182
+Node.js	1	247
+.NET	3	308
+Java	3	220
+Python	3	147
+Android	4	191
+Ruby	1	112
+iOS	3	208
+Java	1	200
+PHP	2	90
+Erlang	1	4
+Xamarin	2	16
+Xamarin	3	18
+.NET	4	302
+Ruby	4	124
+Roku	2	1
+Haskell	3	1
+PHP	1	83
+Other (Mobile)	2	57
+PHP	3	91
+Ruby	3	124
+Other (Server-side)	4	34
+Erlang	4	6
+Roku	4	1
+Node.js	2	282
+Go	2	88
+Browser	4	860
+C	3	10
+Java	4	219
+Other (Server-side)	3	32
+Java	2	212
+Other (Server-side)	1	29
+Ruby	2	120
+Python	1	122
+Browser	3	859
+iOS	1	186
+Xamarin	1	14
+.NET	2	300
+Node.js	3	295
+Node.js	4	294
+Python	4	148
+PHP	4	87
+C	4	10
+iOS	4	216
+Go	4	94
+Go	3	94
+Other (Mobile)	4	58
+Xamarin	4	17
+Roku	1	1
+Roku	3	1
+Haskell	4	1
