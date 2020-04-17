@@ -1,5 +1,21 @@
-body {
- background-image: url("https://cdn.glitch.com/4271f25f-07b2-4643-8140-4c66d5025809%2Fspace-2.jpg?v=1587094702465");
+#main{
+  position:relative;
+}
+div.home {
+  display: block;
+  position: relative;
+}
+
+div.home::after {
+  content: "";
+  background-image: url("https://cdn.glitch.com/4271f25f-07b2-4643-8140-4c66d5025809%2Fspace-2.jpg?v=1587094702465");
+  opacity: 0.2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;   
 }
 
 .googleSignin {

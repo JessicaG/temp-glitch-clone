@@ -84,7 +84,7 @@ app.get('/setcookie', requireUser,
 // if cookie exists, success. otherwise, user is redirected to index
 app.get('/success', requireLogin,
   function(req, res) {
-    res.sendFile(__dirname + '/views/success.html');
+    res.send(nunjucks.render('success.html', req));
   }
 );
 
