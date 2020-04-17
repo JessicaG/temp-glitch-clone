@@ -1,7 +1,7 @@
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 var path = require('path')
-// on   ly do if not running on glitch
+// only do if not running on glitch
 if (!process.env.PROJECT_DOMAIN) {
   // read environment variables (only necessary locally, not on Glitch)
   require('dotenv').config();
@@ -84,17 +84,13 @@ app.get('/success', requireLogin,
   }
 );
 
+//TODO: add requireLogin after being able to see success page
 app.get('/charts',
     function(req, res) {
         res.sendFile(__dirname + '/views/success.html');
     }
 );
 const myPath = path.join(__dirname, '/public')
-
-//app.use(express.static(myPath));
-//app.use(express.static(path.join(__dirname, 'node_modules')));
-
-console.log('path', myPath)
 
 function requireLogin (req, res, next) {
   if (!req.cookies['google-passport-example']) {
