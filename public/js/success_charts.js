@@ -7,7 +7,7 @@ function makeChart(sdks) {
     var ctx = document.getElementById('chart').getContext('2d'); //from the docs https://www.chartjs.org/docs/latest/getting-started/
     var chart = new Chart(ctx, {
     // not sure what charts we like but this is is a start
-    type: 'line',
+    type: 'bar',
 
     // Fake data
     data: {
